@@ -4,6 +4,8 @@
   box-sizing: border-box;
 }
 :root {
+  --index: calc(1vw + 1vh);
+  --transition: 1.5s cubic-bezier(0.05, 0.5, 0, 1);
 }
 @font-face {
   font-family: kamerik-3d;
@@ -21,9 +23,14 @@ body {
 }
 
 .logo {
-  width: 150px;
-  height: 150px;
+  --logo-size: calc(var(--index) * 8);
+  width: var(--logo-size);
+  height: var(--logo-size);
   background-repeat: no-repeat;
+  position: absolute;
+  left: calc(51% - calc(var(--logo-size) / 2));
+  top: calc(var(--index) * 3);
+  z-index: 1;
 }
 .layers {
   perspective: 1000px;
@@ -31,30 +38,65 @@ body {
 .layers__container {
   height: 100vh;
   transform-style: preserve-3d;
+  transform: rotateX(var(--move-y)) rotateY(var(--move-x));
+  min-height: 500px;
+  will-change: transform;
+  transition: transform var(--transition);
 }
 .layers__item {
   position: absolute;
   inset: -5vw;
   background-size: cover;
   background-position: center;
-  transform: rotateX(var(--move-y)) rotateY(var(--move-x));
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .layer-1 {
-  transform: translate(0);
+  transform: translateZ(-55px) scale(1.06);
 }
 .layer-2 {
-  transform: translate(0);
+  transform: translateZ(80px) scale(0.88);
 }
 .layer-3 {
-  transform: translate(0);
+  transform: translateZ(180px) scale(0.8);
 }
 .layer-4 {
-  transform: translate(0);
+  transform: translateZ(190px) scale(0.9);
 }
 .layer-5 {
-  transform: translate(0);
+  transform: translateZ(300px) scale(0.88);
 }
 .layer-6 {
-  transform: translate(0);
+  transform: translateZ(330px);
+}
+
+.hero-content {
+  font-size: calc(var(--index) * 2.5);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: calc(var(--index) * -0.15);
+  line-height: 1.35em;
+  margin-top: calc(var(--index) * 5.5);
+}
+
+.button-start {
+  font-family: Arial;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: calc(var(--index) * 0.71);
+  letter-spacing: -0.02vw;
+  padding: calc(var(--index) * 0.71) calc(var(--index) * 1.25);
+  background-color: transparent;
+  color: #fff;
+  border-radius: 10em;
+  border: rgb(255 255 255 / 0.4) 3px solid;
+  outline: none;
+  cursor: pointer;
+}
+.layer-4,
+.layer-5,
+.layer-6 {
+  pointer-events: none;
 }
